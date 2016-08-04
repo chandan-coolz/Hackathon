@@ -10,21 +10,25 @@
  */
 angular
   .module('hackathonApp', [
-    'ngRoute'
+    'ngRoute','restangular'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider,RestangularProvider) {
+
+   RestangularProvider.setBaseUrl('http://localhost:714/Practice/api/v1/');
+
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'ModuleFirst/views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
       })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+
+  .factory("Names",function(Restangular){ //servie for login
+
+  return Restangular.service('names');
+
+})
